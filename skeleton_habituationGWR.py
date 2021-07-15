@@ -22,7 +22,7 @@ stv = 4
 pls = [0,0,1,0,0] 
 
 # TODO: then create a list of 6 pulses, called x, to use for input
-x = [2,3,5,6,4,7]
+x = pls*6
 
 v = stv # Set connection weight to start weight value
 
@@ -32,11 +32,10 @@ v = stv # Set connection weight to start weight value
 
 nTs = len(x) # find the length of the input list
 y = np.zeros((1,nTs)) # set up (define) a vector for the output time series
-
-for pulse in x:
-    y = [a*v + pls for a in x]
-    v = prev
-
+for t in range(nTs):
+    y[0,t]=v*x[t]
+    if x[t] > 0:
+        v = v*0.7
 # TODO: use a for-loop to iterate 
 #        through each time step in 
 #        the input series and calculate
